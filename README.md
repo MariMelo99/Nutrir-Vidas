@@ -6,5 +6,5 @@ O projeto será realizado em um dia específico da semana, todas as quartas-feir
 No caixa do supermercado, a atendente irá apresentar duas opções de doação aos clientes:
 Arredondamento do valor total da compra; ou,
 Doação de alimentos.
-Devido a demanda de alimentos, um sistema de temperatura foi projetado, se a temperatura estiver abaixo de 24 graus celsios a lug azul é constante, se for acima, a luz vermelha irá acender avisando que algo não está normal.
+Devido a demanda de alimentos, um sistema de temperatura foi projetado, se a temperatura estiver abaixo de 24 graus Celsios, a luz azul é constante, se for acima, a luz vermelha irá acender avisando que algo não está normal.
 
