@@ -1,0 +1,67 @@
+#include <LiquidCrystal.h>
+
+// Inicializa a biblioteca LCD
+LiquidCrystal LCD(12, 11, 5, 4, 3, 2);
+
+// Define o pino analógico A0 como entrada do Sensor de Temperatura
+int SensorTempPino = A0;
+
+// Define o pino 8 para o alerta de temperatura baixa
+int AlertaTempBaixa = 8;
+// Define o pino 13 para o alerta de temperatura alta
+int AlertaTempAlta = 13;
+// Define o pino 9 para o alerta de temperatura correta
+int AlertaTempCorreta = 9;
+
+void setup() {
+  // Inicializa o LCD com 16 colunas e 2 linhas
+  LCD.begin(16, 2);
+
+  // Define os pinos dos alertas como saída
+  pinMode(AlertaTempBaixa, OUTPUT);
+  pinMode(AlertaTempAlta, OUTPUT);
+  pinMode(AlertaTempCorreta, OUTPUT);
+}
+
+void loop() {
+  // Lê o valor do sensor de temperatura
+  int valorSensor = analogRead(SensorTempPino);
+
+  // Converte o valor lido em temperatura em graus Celsius
+  float tensao = (valorSensor * 5.0) / 1023.0;
+  float temperatura = (tensao - 0.5) * 100.0;
+
+  // Exibe a mensagem no LCD
+  LCD.clear();
+  LCD.setCursor(0, 0);
+  LCD.print("Nutrir Vidas");
+  LCD.setCursor(1, 1);
+  LCD.print(" Temp: ");
+  LCD.print(temperatura);
+  LCD.print("C");
+
+  // Verifica se a temperatura está abaixo de 21 graus
+  if (temperatura < 24) {
+    // Acende a luz azul
+    digitalWrite(AlertaTempBaixa, HIGH);
+    digitalWrite(AlertaTempAlta, LOW);
+    digitalWrite(AlertaTempCorreta, LOW);
+  }
+  // Verifica se a temperatura está acima de 21 graus
+  else if (temperatura > 24) {
+    // Acende a luz vermelha
+    digitalWrite(AlertaTempBaixa, LOW);
+    digitalWrite(AlertaTempAlta, HIGH);
+    digitalWrite(AlertaTempCorreta, LOW);
+  }
+  // A temperatura está dentro da faixa correta (21 graus)
+  else {
+    // Acende a luz azul
+    digitalWrite(AlertaTempBaixa, LOW);
+    digitalWrite(AlertaTempAlta, LOW);
+    digitalWrite(AlertaTempCorreta, HIGH);
+  }
+
+  // Aguarda 1 segundo antes de ler a temperatura novamente
+  delay(1000);
+}
